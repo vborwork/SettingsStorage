@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[tb_UserSetting]
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[ProductID] INT NOT NULL,
 	[UserID] INT NOT NULL,
 	[UserSettingID] INT NOT NULL,

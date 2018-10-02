@@ -33,21 +33,18 @@ IF (SELECT COUNT(1)
 
 BEGIN
 INSERT INTO [dbo].[tb_UserSetting]
-           ([Id]
-           ,[ProductID]
+           ([ProductID]
            ,[UserID]
            ,[UserSettingID]
            ,[UserSettingDataTypeID]
            ,[StringValue])
      VALUES
-	       (1,
-            7001,
+	       (7001,
             1,
             1,
             1,
             '{\"preFlop\":[\"2.2\",\"3\",\"5\"],\"postFlop\":[\"20\",\"30\",\"50\"]}'),
-           (2,
-            7001,
+           (7001,
             1,
             1,
             2,
