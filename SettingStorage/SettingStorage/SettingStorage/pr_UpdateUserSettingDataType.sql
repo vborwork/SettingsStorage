@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[pr_UpdateUserSettingDataType]
                 (@Id int,
-                 @StringValue nvarchar(max))
+                 @Name nvarchar(max))
 AS
 
 DECLARE @ReturnCode int = 2;
@@ -8,7 +8,7 @@ DECLARE @TranCount int = @@TRANCOUNT;
 
 	BEGIN TRY
 		UPDATE [SettingsStorage].[dbo].[tb_UserSettingDataType]
-		   SET [Name] = @StringValue
+		   SET [Name] = @Name
 		 WHERE [Id] = @Id
 			
 		SET @ReturnCode = 0;
