@@ -1,0 +1,9 @@
+C:\Dev\SettingStorage\SettingStorage\SettingStorage\bin\Debug\SettingStorage.dacpac
+C:\Dev\SettingStorage\SettingStorage\SettingStorage\bin\Debug\SettingStorage.dll
+C:\Dev\SettingStorage\SettingStorage\SettingStorage\bin\Debug\SettingStorage.pdb
+C:\Dev\SettingStorage\SettingStorage\SettingStorage\obj\Debug\SettingStorage.dll
+C:\Dev\SettingStorage\SettingStorage\SettingStorage\obj\Debug\SettingStorage.pdb
+C:\Dev\SettingStorage\SettingStorage\SettingStorage\obj\Debug\Model.xml
+C:\Dev\SettingStorage\SettingStorage\SettingStorage\obj\Debug\refactor.xml
+C:\Dev\SettingStorage\SettingStorage\SettingStorage\obj\Debug\postdeploy.sql
+C:\Dev\SettingStorage\SettingStorage\SettingStorage\obj\Debug\predeploy.sql
