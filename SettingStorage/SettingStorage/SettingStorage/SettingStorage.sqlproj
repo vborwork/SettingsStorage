@@ -65,6 +65,10 @@
     <Build Include="pr_CreateUserSetting.sql" />
     <Build Include="pr_UpdateUserSetting.sql" />
     <Build Include="pr_DeleteUserSetting.sql" />
+    <Build Include="pr_CreateUserSettingDataType.sql" />
+    <Build Include="pr_UpdateUserSettingDataType.sql" />
+    <Build Include="pr_DeleteUserSettingDataType.sql" />
+    <Build Include="pr_GetUserSettingDataType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SettingStorage.publish.xml" />

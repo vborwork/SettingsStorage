@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[pr_GetUserSetting]
-	@UserID int
+	@UserID int = NULL
 AS
 	SELECT [Id],
            [ProductID],
@@ -8,5 +8,5 @@ AS
            [UserSettingDataTypeID],
            [StringValue]
 	  FROM [SettingsStorage].[dbo].[tb_UserSetting]
-	 WHERE [UserID] = @UserId
+	 WHERE @UserID IS NULL OR [UserID] = @UserId
 RETURN 0
