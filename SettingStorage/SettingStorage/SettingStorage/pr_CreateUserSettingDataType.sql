@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[pr_CreateUserSettingDataType]
-                ( @Id int,
-                  @Name nvarchar(max))
+                (@Name nvarchar(max))
 AS
 
 DECLARE @ReturnCode int = 2;
@@ -9,13 +8,11 @@ DECLARE @RowId TABLE (ID int);
 
 	BEGIN TRY
 		INSERT [SettingsStorage].[dbo].[tb_UserSettingDataType]
-			  ([Id],
-               [Name])
+			  ([Name])
 	    OUTPUT INSERTED.Id
 		  INTO @RowId(ID)
 		VALUES
-		    (@Id,
-             @Name)
+		    (@Name)
 
 		SET @ReturnCode = 0;
 

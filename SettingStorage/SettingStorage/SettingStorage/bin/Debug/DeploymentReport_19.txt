@@ -1,0 +1,19 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[tb_UserSettingDataType]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Table rebuild
+       [dbo].[tb_UserSettingDataType] (Table)
+
+** Supporting actions
+     Drop
+       [dbo].[FK_UserSetting_tb_UserSettingDataType] (Foreign Key)
+     Create
+       [dbo].[FK_UserSetting_tb_UserSettingDataType] (Foreign Key)
