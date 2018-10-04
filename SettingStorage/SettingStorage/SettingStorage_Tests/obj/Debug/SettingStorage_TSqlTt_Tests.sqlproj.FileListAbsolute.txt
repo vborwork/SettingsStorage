@@ -1,0 +1,8 @@
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage_Tests\bin\Debug\SettingStorage_TSqlTt_Tests.dacpac
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage_Tests\obj\Debug\SettingStorage_TSqlTt_Tests.sqlprojAssemblyReference.cache
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage_Tests\obj\Debug\Model.xml
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage_Tests\obj\Debug\refactor.xml
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage_Tests\obj\Debug\postdeploy.sql
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage_Tests\obj\Debug\predeploy.sql
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage_Tests\obj\Debug\SettingStorage_Tests.dll
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage_Tests\obj\Debug\SettingStorage_Tests.pdb

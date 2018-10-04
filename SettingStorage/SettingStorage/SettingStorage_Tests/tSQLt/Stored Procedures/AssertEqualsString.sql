@@ -1,0 +1,13 @@
+﻿CREATE PROCEDURE tSQLt.AssertEqualsString
+@Expected NVARCHAR (MAX), @Actual NVARCHAR (MAX), @Message NVARCHAR (MAX)=''
+AS
+BEGIN
+    IF ((@Expected = @Actual)
+        OR (@Actual IS NULL
+            AND @Expected IS NULL))
+        RETURN 0;
+    DECLARE @Msg AS NVARCHAR (MAX);
+    SELECT @Msg = CHAR(13) + CHAR(10) + 'Expected: ' + ISNULL('<' + @Expected + '>', 'NULL') + CHAR(13) + CHAR(10) + 'but was : ' + ISNULL('<' + @Actual + '>', 'NULL');
+    EXECUTE tSQLt.Fail @Message, @Msg;
+END
+

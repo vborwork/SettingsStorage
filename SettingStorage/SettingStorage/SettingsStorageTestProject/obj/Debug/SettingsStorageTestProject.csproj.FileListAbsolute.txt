@@ -1,0 +1,11 @@
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\bin\Debug\SettingsStorageTestProject.dll.config
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\bin\Debug\SettingsStorageTestProject.dll
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\bin\Debug\SettingsStorageTestProject.pdb
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\bin\Debug\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\bin\Debug\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\obj\Debug\SettingsStorageTestProject.csprojAssemblyReference.cache
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\obj\Debug\SettingsStorageTestProject.csproj.CoreCompileInputs.cache
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\obj\Debug\SettingsStorageTestProject.csproj.CopyComplete
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\obj\Debug\SettingsStorageTestProject.dll
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingsStorageTestProject\obj\Debug\SettingsStorageTestProject.pdb

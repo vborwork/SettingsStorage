@@ -12,3 +12,7 @@ C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage\bin\Debug\Settin
 C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage\bin\Debug\SettingStorage.pdb
 C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage\obj\Debug\SettingStorage.dll
 C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage\obj\Debug\SettingStorage.pdb
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage\obj\Debug\Model.xml
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage\obj\Debug\refactor.xml
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage\obj\Debug\postdeploy.sql
+C:\SettingsStorage\SettingStorage\SettingStorage\SettingStorage\obj\Debug\predeploy.sql

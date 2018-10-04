@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SettingStorage", "SettingStorage\SettingStorage.sqlproj", "{BC128539-F0E5-4952-A504-A2E704A74EDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingStorage_BaseTestProject", "SettingsStorageTestProject\SettingStorage_BaseTestProject.csproj", "{7F267B06-091C-4569-9500-C7A8030048A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{BC128539-F0E5-4952-A504-A2E704A74EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC128539-F0E5-4952-A504-A2E704A74EDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC128539-F0E5-4952-A504-A2E704A74EDC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7F267B06-091C-4569-9500-C7A8030048A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F267B06-091C-4569-9500-C7A8030048A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F267B06-091C-4569-9500-C7A8030048A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F267B06-091C-4569-9500-C7A8030048A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

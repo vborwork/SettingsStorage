@@ -1,0 +1,8 @@
+﻿CREATE PROCEDURE tSQLt.Uninstall
+AS
+BEGIN
+    DROP TYPE tSQLt.Private;
+    EXECUTE tSQLt.DropClass 'tSQLt';
+    DROP ASSEMBLY tSQLtCLR;
+END
+

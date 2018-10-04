@@ -23,6 +23,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <GenerateCreateScript>True</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -57,26 +58,30 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Stored procedures" />
+    <Folder Include="dbo\Tables" />
+    <Folder Include="Deployment scripts" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="tb_UserSetting.sql" />
-    <Build Include="tb_UserSettingDataType.sql" />
-    <Build Include="pr_GetUserSettings.sql" />
-    <Build Include="pr_CreateUserSetting.sql" />
-    <Build Include="pr_UpdateUserSetting.sql" />
-    <Build Include="pr_DeleteUserSetting.sql" />
-    <Build Include="pr_CreateUserSettingDataType.sql" />
-    <Build Include="pr_UpdateUserSettingDataType.sql" />
-    <Build Include="pr_DeleteUserSettingDataType.sql" />
-    <Build Include="pr_GetUserSettingDataType.sql" />
+    <Build Include="dbo\Stored procedures\pr_CreateUserSetting.sql" />
+    <Build Include="dbo\Stored procedures\pr_CreateUserSettingDataType.sql" />
+    <Build Include="dbo\Stored procedures\pr_DeleteUserSetting.sql" />
+    <Build Include="dbo\Stored procedures\pr_DeleteUserSettingDataType.sql" />
+    <Build Include="dbo\Stored procedures\pr_GetUserSettingDataType.sql" />
+    <Build Include="dbo\Stored procedures\pr_GetUserSettings.sql" />
+    <Build Include="dbo\Stored procedures\pr_UpdateUserSetting.sql" />
+    <Build Include="dbo\Stored procedures\pr_UpdateUserSettingDataType.sql" />
+    <Build Include="dbo\Tables\tb_UserSetting.sql" />
+    <Build Include="dbo\Tables\tb_UserSettingDataType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SettingStorage.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Script.PostDeployment.sql" />
+    <RefactorLog Include="SettingStorage.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="SettingStorage.refactorlog" />
+    <None Include="Deployment scripts\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>

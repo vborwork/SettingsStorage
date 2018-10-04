@@ -40,64 +40,253 @@ USE [$(DatabaseName)];
 
 
 GO
-/*
-Post-Deployment Script Template							
---------------------------------------------------------------------------------------
- This file contains SQL statements that will be appended to the build script.		
- Use SQLCMD syntax to include a file in the post-deployment script.			
- Example:      :r .\myfile.sql								
- Use SQLCMD syntax to reference a variable in the post-deployment script.		
- Example:      :setvar TableName MyTable							
-               SELECT * FROM [$(TableName)]					
---------------------------------------------------------------------------------------
-*/
+PRINT N'Dropping [dbo].[FK_UserSetting_tb_UserSettingDataType]...';
 
-USE [SettingsStorage]
-GO
-
-IF (SELECT COUNT(1)
-	  FROM [dbo].[tb_UserSettingDataType]) = 0
-
-BEGIN
-INSERT INTO [dbo].[tb_UserSettingDataType]
-           ([Id]
-           ,[Name])
-     VALUES
-	       (1,
-            'betslider'),
-           (2,
-            'background')
-END
-GO
-
-IF (SELECT COUNT(1)
-	  FROM [dbo].[tb_UserSetting]) = 0
-
-BEGIN
-INSERT INTO [dbo].[tb_UserSetting]
-           ([Id]
-           ,[ProductID]
-           ,[UserID]
-           ,[UserSettingID]
-           ,[UserSettingDataTypeID]
-           ,[StringValue])
-     VALUES
-	       (1,
-            7001,
-            1,
-            1,
-            1,
-            '{\"preFlop\":[\"2.2\",\"3\",\"5\"],\"postFlop\":[\"20\",\"30\",\"50\"]}'),
-           (2,
-            7001,
-            1,
-            1,
-            2,
-            '{\"preFlop\":["\#FFFFF"]}')
-END
-GO
 
 GO
+ALTER TABLE [dbo].[tb_UserSetting] DROP CONSTRAINT [FK_UserSetting_tb_UserSettingDataType];
+
+
+GO
+PRINT N'Starting rebuilding table [dbo].[tb_UserSettingDataType]...';
+
+
+GO
+BEGIN TRANSACTION;
+
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+SET XACT_ABORT ON;
+
+CREATE TABLE [dbo].[tmp_ms_xx_tb_UserSettingDataType] (
+    [Id]   INT            IDENTITY (1, 1) NOT NULL,
+    [Name] NVARCHAR (MAX) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+IF EXISTS (SELECT TOP 1 1 
+           FROM   [dbo].[tb_UserSettingDataType])
+    BEGIN
+        SET IDENTITY_INSERT [dbo].[tmp_ms_xx_tb_UserSettingDataType] ON;
+        INSERT INTO [dbo].[tmp_ms_xx_tb_UserSettingDataType] ([Id], [Name])
+        SELECT   [Id],
+                 [Name]
+        FROM     [dbo].[tb_UserSettingDataType]
+        ORDER BY [Id] ASC;
+        SET IDENTITY_INSERT [dbo].[tmp_ms_xx_tb_UserSettingDataType] OFF;
+    END
+
+DROP TABLE [dbo].[tb_UserSettingDataType];
+
+EXECUTE sp_rename N'[dbo].[tmp_ms_xx_tb_UserSettingDataType]', N'tb_UserSettingDataType';
+
+COMMIT TRANSACTION;
+
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+
+GO
+PRINT N'Creating [dbo].[FK_UserSetting_tb_UserSettingDataType]...';
+
+
+GO
+ALTER TABLE [dbo].[tb_UserSetting] WITH NOCHECK
+    ADD CONSTRAINT [FK_UserSetting_tb_UserSettingDataType] FOREIGN KEY ([UserSettingDataTypeID]) REFERENCES [dbo].[tb_UserSettingDataType] ([Id]);
+
+
+GO
+PRINT N'Altering [dbo].[pr_CreateUserSetting]...';
+
+
+GO
+ALTER PROCEDURE [dbo].[pr_CreateUserSetting]
+                ( @ProductID int,
+                  @UserID int,
+                  @UserSettingID int,
+                  @UserSettingDataTypeID int,
+                  @StringValue nvarchar(max))
+AS
+
+DECLARE @ReturnCode int = 2;
+DECLARE @TranCount int = @@TRANCOUNT;
+DECLARE @ID TABLE (ID int);
+
+	BEGIN TRY
+		INSERT [SettingsStorage].[dbo].[tb_UserSetting]
+			  ([ProductID],
+               [UserID],
+               [UserSettingID],
+               [UserSettingDataTypeID],
+               [StringValue])
+	    OUTPUT INSERTED.Id
+		  INTO @ID(ID)
+		VALUES
+		    (@ProductID,
+             @UserID,
+             @UserSettingID,
+             @UserSettingDataTypeID,
+             @StringValue)
+
+		SET @ReturnCode = 0;
+
+	 SELECT ID as [RowID]
+	   FROM @ID;
+
+		IF @TranCount = 0 
+		BEGIN
+			COMMIT TRANSACTION;
+		  END
+	END TRY
+	BEGIN CATCH
+		IF XACT_STATE() <> 0 AND @TranCount = 0
+		BEGIN
+			ROLLBACK TRANSACTION;
+		END
+	END CATCH
+
+RETURN @ReturnCode;
+GO
+PRINT N'Altering [dbo].[pr_GetUserSetting]...';
+
+
+GO
+ALTER PROCEDURE [dbo].[pr_GetUserSetting]
+	@UserID int = NULL
+AS
+	SELECT [Id],
+           [ProductID],
+           [UserID],
+           [UserSettingID],
+           [UserSettingDataTypeID],
+           [StringValue]
+	  FROM [SettingsStorage].[dbo].[tb_UserSetting]
+	 WHERE @UserID IS NULL OR [UserID] = @UserId
+RETURN 0
+GO
+PRINT N'Creating [dbo].[pr_CreateUserSettingDataType]...';
+
+
+GO
+CREATE PROCEDURE [dbo].[pr_CreateUserSettingDataType]
+                (@Name nvarchar(max))
+AS
+
+DECLARE @ReturnCode int = 2;
+DECLARE @TranCount int = @@TRANCOUNT;
+DECLARE @RowId TABLE (ID int);
+
+	BEGIN TRY
+		INSERT [SettingsStorage].[dbo].[tb_UserSettingDataType]
+			  ([Name])
+	    OUTPUT INSERTED.Id
+		  INTO @RowId(ID)
+		VALUES
+		    (@Name)
+
+		SET @ReturnCode = 0;
+
+	 SELECT ID as [RowID]
+	   FROM @RowId;
+
+		IF @TranCount = 0 
+		BEGIN
+			COMMIT TRANSACTION;
+		  END
+	END TRY
+	BEGIN CATCH
+		IF XACT_STATE() <> 0 AND @TranCount = 0
+		BEGIN
+			ROLLBACK TRANSACTION;
+		END
+	END CATCH
+
+RETURN @ReturnCode;
+GO
+PRINT N'Creating [dbo].[pr_DeleteUserSettingDataType]...';
+
+
+GO
+CREATE PROCEDURE [dbo].[pr_DeleteUserSettingDataType]
+                (@Id int,
+				 @Name nvarchar(max))
+AS
+
+DECLARE @ReturnCode int = 2;
+DECLARE @TranCount int = @@TRANCOUNT;
+
+	BEGIN TRY
+		DELETE FROM [SettingsStorage].[dbo].[tb_UserSettingDataType]
+		      WHERE [Id] = @Id
+		        AND [Name] = @Name
+			
+		SET @ReturnCode = 0;
+
+		IF @TranCount = 0 COMMIT TRANSACTION;
+
+	END TRY
+	BEGIN CATCH
+		IF XACT_STATE() <> 0 AND @TranCount = 0
+		BEGIN
+			ROLLBACK TRANSACTION;
+		END
+	END CATCH
+
+RETURN @ReturnCode;
+GO
+PRINT N'Creating [dbo].[pr_GetUserSettingDataType]...';
+
+
+GO
+CREATE PROCEDURE [dbo].[pr_GetUserSettingDataType]
+	@Id int = NULL
+AS
+	SELECT [Id],
+           [Name]
+      FROM [SettingsStorage].[dbo].[tb_UserSettingDataType]
+	 WHERE @Id IS NULL  OR [Id] = @Id
+RETURN 0
+GO
+PRINT N'Creating [dbo].[pr_UpdateUserSettingDataType]...';
+
+
+GO
+CREATE PROCEDURE [dbo].[pr_UpdateUserSettingDataType]
+                (@Id int,
+                 @Name nvarchar(max))
+AS
+
+DECLARE @ReturnCode int = 2;
+DECLARE @TranCount int = @@TRANCOUNT;
+
+	BEGIN TRY
+		UPDATE [SettingsStorage].[dbo].[tb_UserSettingDataType]
+		   SET [Name] = @Name
+		 WHERE [Id] = @Id
+			
+		SET @ReturnCode = 0;
+
+		IF @TranCount = 0 COMMIT TRANSACTION;
+
+	END TRY
+	BEGIN CATCH
+		IF XACT_STATE() <> 0 AND @TranCount = 0
+		BEGIN
+			ROLLBACK TRANSACTION;
+		END
+	END CATCH
+
+RETURN @ReturnCode;
+GO
+PRINT N'Checking existing data against newly created constraints';
+
+
+GO
+USE [$(DatabaseName)];
+
+
+GO
+ALTER TABLE [dbo].[tb_UserSetting] WITH CHECK CHECK CONSTRAINT [FK_UserSetting_tb_UserSettingDataType];
+
 
 GO
 PRINT N'Update complete.';
